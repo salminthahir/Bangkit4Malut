@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visualisasi Data Iklan Google Proxy-Ads</title>
+  <link rel="icon" type="image/x-icon" href="img/New Project.png">
+  <title>Vis. Data Iklan Google Proxy-Ads</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,6 +15,7 @@
       margin: 0;
       padding: 0;
       color: #333;
+      
     }
     .header {
       background-color: #ca040e;
@@ -108,6 +110,86 @@
       .example-ad-buttons {
         justify-content: flex-start;
       }
+      .ad-preview-300x250 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 350px;
+      width: 100%;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .ad-preview-image img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .ad-preview-details {
+      padding: 15px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ad-preview-text h6 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .ad-preview-text p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .ad-preview-cta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .ad-preview-cta .business-name {
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: #007bff;
+      text-align: left;
+    }
+
+    .ad-preview-cta .cta-text {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #28a745;
+      text-align: right;
+      cursor: pointer;
+    }
+
+    .ad-preview-cta .cta-text:hover {
+      text-decoration: underline;
+    }
+
+    .ad-arrow {
+      width: 15px;
+      height: 15px;
+      display: inline-block;
+      border: solid #28a745;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      margin-left: 5px;
+    }
+
+    @media (min-width: 576px) {
+      .ad-preview-300x250 {
+        max-width: 400px;
+      }
+    }
     }
   </style>
 </head>
@@ -194,15 +276,17 @@
       </div>
       <div class="example-ad-content">
         <div class="example-ad-image">
-          <img class="example-ad-img" src="img/New Project (1).png" alt="Square Image">
+          <img class="example-ad-img" src="img/ad_banner2.jpg" alt="Square Image">
         </div>
         <div class="example-ad-details">
           <div class="example-ad-logo">
             <img src="img/New Project.png" alt="Logo">
           </div>
           <div class="example-ad-text">
-            <h6 id="adPreviewBusinessName">Bangkit Bersama 4 Malut</h6>
-            <p id="adPreviewDescription">Ayo wujudkan pemimpin perempuan pertama di Maluku Utara! Sherly Tjoanda, pemimpin peduli.</p>
+            <h6 id="adPreviewBusinessName">Sherly Tjoanda - Sarbin Sehe</h6>
+            <p id="adPreviewDescription">Maju & Lanjutkan Untuk Maluku Utara Bangkit
+
+              Visi & Misi Sherly - Sarbin masih melanjutkan yang Almarhum @benny.laos gagas sesuai dengan kebutuhan masyarakat Maluku Kie Raha..</p>
           </div>
           <div class="example-ad-buttons">
             <button class="btn btn-secondary">Close</button>
@@ -212,15 +296,15 @@
       </div>
       <div class="example-ad-content">
         <div class="example-ad-image">
-          <img class="example-ad-img" src="img/New Project (1).png" alt="Square Image">
+          <img class="example-ad-img" src="img/Stiker.png" alt="Square Image">
         </div>
         <div class="example-ad-details">
           <div class="example-ad-logo">
             <img src="img/New Project.png" alt="Logo">
           </div>
           <div class="example-ad-text">
-            <h6 id="adPreviewBusinessName">Bangkit Bersama 4 Malut</h6>
-            <p id="adPreviewDescription">Ayo wujudkan pemimpin perempuan pertama di Maluku Utara! Sherly Tjoanda, pemimpin peduli.</p>
+            <h6 id="adPreviewBusinessName">#sherlytjoanda #sarbinsehe</h6>
+            <p id="adPreviewDescription">Mari bersama kita wujudkan untuk Maluku Utara Maju, Sejahtera.</p>
           </div>
           <div class="example-ad-buttons">
             <button class="btn btn-secondary">Close</button>
@@ -437,7 +521,7 @@
 
 
           // Data Distribusi Lokasi
-            const locationLabels = ["Ternate", "Tidore", "Bacan", "Halmahera", "Jailolo"];
+            const locationLabels = ["Ternate", "Tidore", "Tobelo", "Bacan", "Jailolo"];
             const locationData = [73698, 52642, 31585, 21057, 31585];
             const totalLocationData = locationData.reduce((a, b) => a + b, 0); // Hitung total
 
