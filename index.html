@@ -148,26 +148,66 @@
           <h2>Rekapitulasi Iklan</h2>
         </div>
         <div class="card-body">
-          <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-              <tr>
-                <th>Total Tayangan</th>
-                <th>Total Klik</th>
-                <th>Total Biaya (IDR)</th>
-                <th>Rata-rata CPC</th>
-                <th>Rata-rata CPM</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>210,567</td>
-                <td>2,726</td>
-                <td>7,545,000</td>
-                <td>876,00 IDR</td>
-                <td>350,69 IDR</td>
-              </tr>
-            </tbody>
-          </table>
+          <!-- Tambahkan table-responsive -->
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Total Tayangan</th>
+                  <th>Total Klik</th>
+                  <th>Total Biaya (IDR)</th>
+                  <th>Rata-rata CPC</th>
+                  <th>Rata-rata CPM</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>210,567</td>
+                  <td>2,726</td>
+                  <td>7,545,000</td>
+                  <td>876,00 IDR</td>
+                  <td>350,69 IDR</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <div class="example-ad-content">
+        <div class="example-ad-image">
+          <img class="example-ad-img" src="img/New Project (1).png" alt="Square Image">
+        </div>
+        <div class="example-ad-details">
+          <div class="example-ad-logo">
+            <img src="img/New Project.png" alt="Logo">
+          </div>
+          <div class="example-ad-text">
+            <h6 id="adPreviewBusinessName">Bangkit Bersama 4 Malut</h6>
+            <p id="adPreviewDescription">Ayo wujudkan pemimpin perempuan pertama di Maluku Utara! Sherly Tjoanda, pemimpin peduli.</p>
+          </div>
+          <div class="example-ad-buttons">
+            <button class="btn btn-secondary">Close</button>
+            <button class="btn btn-primary ctaText">Visit Site</button>
+          </div>
+        </div>
+      </div>
+      <div class="example-ad-content">
+        <div class="example-ad-image">
+          <img class="example-ad-img" src="img/New Project (1).png" alt="Square Image">
+        </div>
+        <div class="example-ad-details">
+          <div class="example-ad-logo">
+            <img src="img/New Project.png" alt="Logo">
+          </div>
+          <div class="example-ad-text">
+            <h6 id="adPreviewBusinessName">Bangkit Bersama 4 Malut</h6>
+            <p id="adPreviewDescription">Ayo wujudkan pemimpin perempuan pertama di Maluku Utara! Sherly Tjoanda, pemimpin peduli.</p>
+          </div>
+          <div class="example-ad-buttons">
+            <button class="btn btn-secondary">Close</button>
+            <button class="btn btn-primary ctaText">Visit Site</button>
+          </div>
         </div>
       </div>
       <div class="example-ad-content">
@@ -247,6 +287,7 @@
   <!-- Bootstrap and Vue.js scripts -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
   <script>
     // Vue.js Instance
@@ -317,10 +358,12 @@
             }
           });
           
-          // Data Distribusi Gender
+         // Data Distribusi Gender
           const genderLabels = ["Laki-laki", "Perempuan"];
-          const genderData = [60, 40];
+          const genderData = [84.226, 126.340];
+          const totalData = genderData.reduce((a, b) => a + b, 0); // Total semua data
           const ctxGender = document.getElementById('genderPieChart').getContext('2d');
+
           new Chart(ctxGender, {
             type: 'pie',
             data: {
@@ -329,13 +372,30 @@
                 data: genderData,
                 backgroundColor: ['#36A2EB', '#FF6384'],
               }]
-            }
+            },
+            options: {
+              plugins: {
+                datalabels: {
+                  formatter: (value, context) => {
+                    const percentage = ((value / totalData) * 100).toFixed(1); // Hitung persentase
+                    return `${percentage}%`; // Tampilkan persentase
+                  },
+                  color: '#fff', // Warna teks
+                  font: {
+                    weight: 'bold',
+                  }
+                }
+              }
+            },
+            plugins: [ChartDataLabels] // Aktifkan plugin
           });
-
-          // Data Distribusi Usia
+                    // Data Distribusi Usia
           const ageLabels = ["18-24", "25-34", "35-44", "45+"];
           const ageData = [82221, 61080, 42113, 25268];
+          const totalAgeData = ageData.reduce((a, b) => a + b, 0); // Hitung total
+
           const ctxAge = document.getElementById('agePieChart').getContext('2d');
+
           new Chart(ctxAge, {
             type: 'pie',
             data: {
@@ -343,30 +403,87 @@
               datasets: [{
                 label: 'Distribusi Views Berdasarkan Usia',
                 data: ageData,
-                backgroundColor: ['rgba(255, 159, 64, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 205, 86, 1)'],
-                borderColor: ['rgba(255, 159, 64, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 205, 86, 1)'],
-                borderWidth: 1    
-            }]
-            }
+                backgroundColor: [
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 205, 86, 1)'
+                ],
+                borderColor: [
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 205, 86, 1)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              plugins: {
+                datalabels: {
+                  formatter: (value, context) => {
+                    const percentage = ((value / totalAgeData) * 100).toFixed(1); // Hitung persentase
+                    return `${percentage}%`; // Tampilkan persentase
+                  },
+                  color: '#fff', // Warna teks
+                  font: {
+                    weight: 'bold'
+                  }
+                }
+              }
+            },
+            plugins: [ChartDataLabels] // Aktifkan plugin
           });
 
+
           // Data Distribusi Lokasi
-          const locationLabels = ["Ternate", "Tidore", "Bacan", "Halmahera", "Jailolo"];
-          const locationData = [73698, 52642, 31585, 21057, 31585];
-          const ctxLocation = document.getElementById('locationPieChart').getContext('2d');
-          new Chart(ctxLocation, {
-            type: 'pie',
-            data: {
+            const locationLabels = ["Ternate", "Tidore", "Bacan", "Halmahera", "Jailolo"];
+            const locationData = [73698, 52642, 31585, 21057, 31585];
+            const totalLocationData = locationData.reduce((a, b) => a + b, 0); // Hitung total
+
+            const ctxLocation = document.getElementById('locationPieChart').getContext('2d');
+
+            new Chart(ctxLocation, {
+              type: 'pie',
+              data: {
                 labels: locationLabels,
-    datasets: [{
-      label: 'Distribusi Views Berdasarkan Lokasi',
-      data: locationData,
-      backgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)'],
-      borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)'],
-      borderWidth: 1
-              }]
-            }
-          });
+                datasets: [{
+                  label: 'Distribusi Views Berdasarkan Lokasi',
+                  data: locationData,
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                  ],
+                  borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                  ],
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                plugins: {
+                  datalabels: {
+                    formatter: (value, context) => {
+                      const percentage = ((value / totalLocationData) * 100).toFixed(1); // Hitung persentase
+                      return `${percentage}%`; // Tampilkan persentase
+                    },
+                    color: '#fff', // Warna teks
+                    font: {
+                      weight: 'bold'
+                    }
+                  }
+                }
+              },
+              plugins: [ChartDataLabels] // Aktifkan plugin
+            });
+
 
           // Grafik Line Lokasi
     const ctxLocationLine = document.getElementById('locationLineChart').getContext('2d');
